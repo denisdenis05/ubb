@@ -8,3 +8,6 @@
 
   
 - [Fundamentals of Programming](https://github.com/denisdenis05/ubb/tree/main/Year01/Semester01/Fundamentals_of_programming)
+
+
+- [Computer Systems Architecture](https://github.com/denisdenis05/ubb/tree/main/Year01/Semester01/Computer_Systems_Architecture)
