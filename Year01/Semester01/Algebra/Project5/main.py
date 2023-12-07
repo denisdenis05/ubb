@@ -1,50 +1,74 @@
 import itertools
 import numpy as np
 
-def isLinearlyIndependent(vectorSpaces: int) -> bool:
-    matrixOfVectorSpaced = np.array(vectorSpaces).T  # transform list of vector spaces into matrix
-    determinant = np.linalg.det(matrixOfVectorSpaced)  # we calculate the determinant of the matrix
-    if determinant != 0:
-        return True  # determinant is not zero so it is linearly independent
+
+def getFirstLineZero(matrix, m, n):
+    i = 0
+    firstLineZero = ()
+    while i < m and matrix[i][0] == 1:
+        i += 1
+    if i == m:
+        return ()
     else:
-        return False  # determinant is zero so it is linearly dependent
+        currentLatest0 = 0
+        for j in range(n):
+            if matrix[i][j] == 0:
+                currentLatest0 = j
+            else:
+                break
+    firstLineZero = (i, currentLatest0)
+    return firstLineZero
 
 
-def generateVectorSpaces(n: int) -> list:
-    vectorSpaces = list(itertools.product([0, 1], repeat=n))  # generates all vector spaces
-    print(vectorSpaces)
-    return vectorSpaces
+def hasZerosUnderDiagonal(matrix, m, n):
+    firstLineZero = getFirstLineZero(matrix, m, n)
+    if firstLineZero == ():
+        return False
+    else:
+        for i in range(m):
+            for j in range(n):
+                if i > firstLineZero[0] and j <= i + firstLineZero[1]:
+                    if matrix[i][j] == 1:
+                        return False
+    return True
+
+def checkColumnFor1sOtherThanLeading1s(matrix, m, n, positionOfLeading1, column):
+    for i in range(m):
+        if matrix[i][column] == 1 and i != positionOfLeading1:
+            return True
+    return False
+
+def checkForLeading1s(matrix, m, n):
+    for i in range(m):
+        for j in range(n):
+            if matrix[i][j] == 1:
+                if checkColumnFor1sOtherThanLeading1s(matrix, m, n, i, j):
+                    return False
+                break
+    return True
+
+def generateMatrices(m, n):
+    allMatrices = list(itertools.product([0, 1], repeat=m*n))
+    matricesWithZerosUnder = [matrix for matrix in allMatrices if hasZerosUnderDiagonal(np.array(matrix).reshape(m, n), m, n)]
+    reducedEchelonMatrices = [matrix for matrix in matricesWithZerosUnder if checkForLeading1s(np.array(matrix).reshape(m, n), m, n)]
+    #reduced_echelon_matrices
+    return reducedEchelonMatrices
 
 
-def generateAllBases(n: int) -> list:
 
-    vectorSpaces = generateVectorSpaces(n)  # we generate the vector spaces
-
-    allBases = []  # we create a list of bases which is empty at first
-
-    for basisToCheck in itertools.product(vectorSpaces, repeat=n):  # we take each generated base in combinations of n vector spaces (dimension is n)
-        if isLinearlyIndependent(basisToCheck):  # we check if the base is linearly independent and if so, we put it in the list
-            allBases.append(basisToCheck)
-
-    return allBases
-
-
-def displayAllBases(n: int, allBases: list):
-    textToPrint = f"1. the number of bases of the vector space Z^2 {n} over Z2 is {len(allBases)}\n"
-
-    textToPrint = textToPrint + "2. the vectors of each such basis are:\n"
-    for basis in allBases:
-        textToPrint = textToPrint + str(basis) + "\n"
-    with open("output.txt", 'w') as file:
-        file.write(textToPrint)
 
 def main():
     with open("input.txt", 'r') as file:
-        n = int(file.read())
-
-    allBases = generateAllBases(n)
-    displayAllBases(n, allBases)
-
+        lines = file.readlines()
+        m= int(lines[0])
+        n = int(lines[1])
+        resultMatrices = generateMatrices(m, n)
+        textToPrint = ""
+        textToPrint += f"The number of matrices M{m},{n}(Z2) in reduced echelon form is {len(resultMatrices)}\n\n"
+        textToPrint += "The matrices M{m},{n}(Z2) in reduced echelon form are:\n"
+        for matrix in resultMatrices:
+            textToPrint += str(np.array(matrix).reshape(m, n)) + '\n'
+        with open("output.txt", 'w') as file:
+            file.write(textToPrint)
 
 main()
-
