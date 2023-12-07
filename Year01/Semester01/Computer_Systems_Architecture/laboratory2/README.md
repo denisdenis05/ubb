@@ -14,9 +14,9 @@ a+b-c+d
 (d-c)+(b+b-c-a)+d
 
 ### a,b,c - byte, d - word
-[(a*b)-d]/(b+c)
-d+10*a-b*c
+[(axb)-d]/(b+c)
+d+10xa-b*c
 
 ### a,b,c,d-byte, e,f,g,h-word
-(g+5)-a*d
-(e+g-h)/3+b*c
+(g+5)-axd
+(e+g-h)/3+bxc
