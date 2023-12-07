@@ -2,7 +2,7 @@
 
 
 ## Year One
-### [📕 Semester 1](https://github.com/denisdenis05/ubb/tree/main/Year01/Semester01))
+### [📕 Semester 1](https://github.com/denisdenis05/ubb/tree/main/Year01/Semester01)
 
 - [Algebra](https://github.com/denisdenis05/ubb/tree/main/Year01/Semester01/Algebra)
 
