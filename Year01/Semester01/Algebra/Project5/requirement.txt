@@ -1,20 +1,12 @@
-Input: non-zero natural number n
+Input: natural numbers m, n ≥ 2
  Output:
-1. the number of bases of the vector space Zn2 over Z2
-2. the vectors of each such basis (for n ≤ 4)
-Example: The vector space Z2
-2 over Z2 has 4 vectors, namely (0, 0), (0, 1), (1, 0), (1, 1). Its
-dimension is 2, so every basis has two vectors. The first vector v1 may be chosen in 3 ways
-(v1 ̸= 0), while the second vector v2 may be chosen in 2 ways (v2 ̸= (0, 0) and v2 different of any
-linear combination of other non-zero vectors, which in this case means v2 ̸= v1). Hence there
-are 3 · 2 = 6 bases.
- Input: n = 2
+1. the number of matrices A ∈ Mm,n(Z2) in reduced (that is, each column containing a
+leading 1 has zeros everywhere else) echelon form
+2. the matrices A ∈ Mm,n(Z2) in reduced echelon form (for 2 ≤ m, n ≤ 5)
+Example:
+ Input: m = 2, n = 3
  Output:
-1. the number of bases of the vector space Z2`2 over Z2 is 6
-2. the vectors of each such basis are:
-((0,1),(1,0))
-((0,1),(1,1))
-((1,0),(0,1))
-((1,0),(1,1))
-((1,1),(0,1))
-((1,1),(1,0))
+1. the number of matrices A ∈ M2,3(Z2) in reduced echelon form is 15
+2. the matrices A ∈ M2,3(Z2) in reduced echelon form are (the leading 1’s are framed):
+
+[[1 1 1],[0 0 0]], [[1 0 1], [0 1 1]], [[1 0 0], [0 1 1]], ...
