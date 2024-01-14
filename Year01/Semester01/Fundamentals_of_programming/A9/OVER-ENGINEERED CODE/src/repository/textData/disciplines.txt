@@ -1,0 +1,6 @@
+3:French
+5:History
+6:Geography
+7:Physics
+9:Biology
+10:Computer Science
